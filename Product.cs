@@ -1,8 +1,13 @@
+using System.Text.Json.Serialization;
+
 namespace Items{
     class Product : Goods{
-        
+
         public DateTime ProductionDate { get; set; }
         public DateTime ShelfLife { get; set; }
+
+        [JsonConstructor]
+        public Product() {}
 
         public Product(string name, decimal price, DateTime productionDate, DateTime shelfLife){
             Name           = name;

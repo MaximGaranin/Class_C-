@@ -1,9 +1,14 @@
+using System.Text.Json.Serialization;
+
 namespace Items{
     class Party : Goods{
 
         public int Count { get; set; }
         public DateTime ProductionDate { get; set; }
         public DateTime ShelfLife { get; set; }
+
+        [JsonConstructor]
+        public Party() {}
 
         public Party(string name, decimal price, int count, DateTime productionDate, DateTime shelfLife){
             Name           = name;
@@ -14,7 +19,6 @@ namespace Items{
         }
 
         public override void Show(){
-            
             Console.WriteLine($"[Партия]    {Name,-22} | Цена: {Price,6} руб. | " +
                               $"Кол-во: {Count,5} шт. | " +
                               $"Произведён: {ProductionDate:dd.MM.yyyy} | " +
