@@ -1,0 +1,45 @@
+[
+  {
+    "Type": "Product",
+    "ProductionDate": "2026-03-01T00:00:00",
+    "ShelfLife": "2026-03-25T00:00:00",
+    "Name": "Молоко",
+    "Price": 89
+  },
+  {
+    "Type": "Product",
+    "ProductionDate": "2026-02-01T00:00:00",
+    "ShelfLife": "2026-03-10T00:00:00",
+    "Name": "Масло",
+    "Price": 150
+  },
+  {
+    "Type": "Party",
+    "Count": 100,
+    "ProductionDate": "2026-01-15T00:00:00",
+    "ShelfLife": "2026-06-15T00:00:00",
+    "Name": "Сок",
+    "Price": 75
+  },
+  {
+    "Type": "Complect",
+    "Products": [
+      {
+        "Type": "Product",
+        "ProductionDate": "2026-03-10T00:00:00",
+        "ShelfLife": "2026-09-10T00:00:00",
+        "Name": "Каша",
+        "Price": 60
+      },
+      {
+        "Type": "Product",
+        "ProductionDate": "2025-12-01T00:00:00",
+        "ShelfLife": "2026-02-01T00:00:00",
+        "Name": "Джем",
+        "Price": 120
+      }
+    ],
+    "Name": "Завтрак",
+    "Price": 250
+  }
+]
