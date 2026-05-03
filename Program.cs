@@ -3,9 +3,10 @@ using System.Text.Json.Serialization;
 
 namespace Items{
 class Program{
-    const string FMT      = "dd.MM.yyyy";
-    const string PATH     = "input.txt";
-    const string JSON_OUT = "output.json";
+    const string FMT       = "dd.MM.yyyy";
+    const string TXT_PATH  = "input.txt";
+    const string JSON_IN   = "input.json";
+    const string JSON_OUT  = "output.json";
 
     static readonly JsonSerializerOptions JsonOpts = new()
     {
@@ -15,15 +16,61 @@ class Program{
 
     static void Main()
     {
-        var db = new List<Goods>();
+        List<Goods> db;
 
-        if (!File.Exists(PATH))
+        // Приоритет: если есть input.json — читаем из него,
+        // иначе читаем из input.txt
+        if (File.Exists(JSON_IN))
         {
-            Console.WriteLine($"[!] Файл {PATH} не найден.");
+            PrintHeader($"ИСТОЧНИК: {JSON_IN}");
+            db = LoadFromJson(JSON_IN);
+        }
+        else if (File.Exists(TXT_PATH))
+        {
+            PrintHeader($"ИСТОЧНИК: {TXT_PATH}");
+            db = LoadFromTxt(TXT_PATH);
+        }
+        else
+        {
+            Console.WriteLine("[!] Не найден ни input.json, ни input.txt.");
             return;
         }
 
-        foreach (var line in File.ReadAllLines(PATH))
+        if (db.Count == 0)
+        {
+            Console.WriteLine("[!] База пуста. Проверьте входной файл.");
+            return;
+        }
+
+        PrintHeader("ВСЕ ТОВАРЫ (исходный порядок)");
+        foreach (var g in db) g.Show();
+
+        db.Sort();
+        PrintHeader("СОРТИРОВКА ПО ЦЕНЕ ↑");
+        foreach (var g in db) g.Show();
+
+        PrintHeader($"ПРОСРОЧЕННЫЕ (на {DateTime.Today:dd.MM.yyyy})");
+        var expired = db.Where(g => !g.IsShelfLife()).ToList();
+        if (expired.Any())
+            foreach (var g in expired) g.Show();
+        else
+            Console.WriteLine("  Просроченных не найдено.");
+
+        // Сериализация в JSON
+        SaveJson(db, JSON_OUT);
+
+        // Десериализация обратно — проверка round-trip
+        var reloaded = LoadFromJson(JSON_OUT);
+        PrintHeader($"ЗАГРУЖЕНО ИЗ {JSON_OUT} (round-trip проверка)");
+        foreach (var g in reloaded) g.Show();
+    }
+
+    // ── Чтение из TXT ────────────────────────────────────────────────────────
+    static List<Goods> LoadFromTxt(string path)
+    {
+        var db = new List<Goods>();
+
+        foreach (var line in File.ReadAllLines(path))
         {
             if (string.IsNullOrWhiteSpace(line) || line.StartsWith("#"))
                 continue;
@@ -75,54 +122,40 @@ class Program{
             }
         }
 
-        if (db.Count == 0)
-        {
-            Console.WriteLine("[!] База пуста. Проверьте файл.");
-            return;
-        }
-
-        PrintHeader("ВСЕ ТОВАРЫ (исходный порядок)");
-        foreach (var g in db) g.Show();
-
-        db.Sort();
-        PrintHeader("СОРТИРОВКА ПО ЦЕНЕ ↑");
-        foreach (var g in db) g.Show();
-
-        PrintHeader($"ПРОСРОЧЕННЫЕ (на {DateTime.Today:dd.MM.yyyy})");
-        var expired = db.Where(g => !g.IsShelfLife()).ToList();
-        if (expired.Any())
-            foreach (var g in expired) g.Show();
-        else
-            Console.WriteLine("  Просроченных не найдено.");
-
-        // JSON сериализация
-        SaveJson(db);
-        LoadJson();
+        return db;
     }
 
-    static void SaveJson(List<Goods> db)
+    // ── Сериализация в JSON-файл ──────────────────────────────────────────────
+    static void SaveJson(List<Goods> db, string path)
     {
         string json = JsonSerializer.Serialize(db, JsonOpts);
-        File.WriteAllText(JSON_OUT, json);
-        PrintHeader($"JSON сохранён → {JSON_OUT}");
+        File.WriteAllText(path, json);
+        PrintHeader($"JSON сохранён → {path}");
         Console.WriteLine(json);
     }
 
-    static void LoadJson()
+    // ── Десериализация из JSON-файла ──────────────────────────────────────────
+    static List<Goods> LoadFromJson(string path)
     {
-        if (!File.Exists(JSON_OUT)) return;
+        if (!File.Exists(path))
+        {
+            Console.WriteLine($"[!] Файл {path} не найден.");
+            return new List<Goods>();
+        }
 
-        string json = File.ReadAllText(JSON_OUT);
+        string json = File.ReadAllText(path);
+
+        // JsonPolymorphic на Goods обеспечивает корректное восстановление
+        // конкретных типов (Product / Party / Complect) по дискриминатору "Type"
         var loaded = JsonSerializer.Deserialize<List<Goods>>(json, JsonOpts);
 
         if (loaded == null || loaded.Count == 0)
         {
-            Console.WriteLine("[!] Десериализация вернула пустой список.");
-            return;
+            Console.WriteLine($"[!] Десериализация {path} вернула пустой список.");
+            return new List<Goods>();
         }
 
-        PrintHeader("ЗАГРУЖЕНО ИЗ JSON");
-        foreach (var g in loaded) g.Show();
+        return loaded;
     }
 
     static void PrintHeader(string title)
