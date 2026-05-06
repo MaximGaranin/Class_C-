@@ -15,9 +15,9 @@ namespace Items{
         }
 
         public override void Show(){
-            Console.WriteLine($"[Комплект] {Name,-22} | Цена: {Price,6} руб. | Состав ({Products.Count} шт.):");
+            Console.WriteLine($"[Комплект] {Name,-22} | Стоимость комплекта: {Price,6} руб. | Состав ({Products.Count} шт.):");
             foreach (var p in Products)
-                Console.WriteLine($"             - {p.Name,-20} | Произведён: {p.ProductionDate:dd.MM.yyyy} | Годен до: {p.ShelfLife:dd.MM.yyyy}");
+                Console.WriteLine($"             - {p.Name,-20}| Цена: {p.Price} | Произведён: {p.ProductionDate:dd.MM.yyyy} | Годен до: {p.ShelfLife:dd.MM.yyyy}");
         }
 
         public override bool IsShelfLife() =>

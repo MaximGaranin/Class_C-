@@ -1,52 +1,49 @@
 [
   {
     "Type": "Product",
-    "Name": "Молоко",
-    "Price": 89,
-    "ProductionDate": "2026-03-01T00:00:00",
-    "ShelfLife": "2026-12-25T00:00:00"
+    "Name": "Хлеб белый",
+    "Price": 45.50,
+    "ProductionDate": "2026-05-05",
+    "ShelfLife": "2026-05-08"
   },
   {
     "Type": "Product",
-    "Name": "Масло",
-    "Price": 150,
-    "ProductionDate": "2026-02-01T00:00:00",
-    "ShelfLife": "2026-12-10T00:00:00"
-  },
+    "Name": "Мясо",
+    "Price": 65.50,
+    "ProductionDate": "2026-04-05",
+    "ShelfLife": "2026-05-02"
+  },  
   {
-    "Type": "Party",
-    "Name": "Сок",
-    "Price": 75,
-    "Count": 100,
-    "ProductionDate": "2026-01-15T00:00:00",
-    "ShelfLife": "2026-06-15T00:00:00"
-  },
-  {
-    "Type": "Party",
-    "Name": "Йогурт",
-    "Price": 55,
-    "Count": 50,
-    "ProductionDate": "2026-03-05T00:00:00",
-    "ShelfLife": "2026-12-20T00:00:00"
+  "Type": "Party",
+  "Name": "Молоко",
+  "Price": 8900.90,
+  "Count": 100,
+  "Item": {
+    "Type": "Product",
+    "Name": "Молоко 3.2%",
+    "Price": 89.90,
+    "ProductionDate": "2026-05-04",
+    "ShelfLife": "2026-05-11"
+  }
   },
   {
     "Type": "Complect",
-    "Name": "Завтрак",
-    "Price": 250,
+    "Name": "Завтрак №1",
+    "Price": 199.00,
     "Products": [
       {
         "Type": "Product",
-        "Name": "Каша",
-        "Price": 60,
-        "ProductionDate": "2026-03-10T00:00:00",
-        "ShelfLife": "2026-09-10T00:00:00"
+        "Name": "Масло сливочное",
+        "Price": 89.00,
+        "ProductionDate": "2026-04-20",
+        "ShelfLife": "2026-07-20"
       },
       {
         "Type": "Product",
-        "Name": "Джем",
-        "Price": 120,
-        "ProductionDate": "2025-12-01T00:00:00",
-        "ShelfLife": "2026-02-01T00:00:00"
+        "Name": "Сыр российский",
+        "Price": 110.00,
+        "ProductionDate": "2026-04-25",
+        "ShelfLife": "2026-06-25"
       }
     ]
   }

@@ -17,11 +17,10 @@ namespace Items{
         }
 
         public override void Show(){
-            Console.WriteLine($"[Партия]   {Name,-22} | Цена: {Price,6} руб. | Кол-во: {Count,5} шт.");
-            Console.WriteLine($"             - {Item.Name,-20} | Произведён: {Item.ProductionDate:dd.MM.yyyy} | Годен до: {Item.ShelfLife:dd.MM.yyyy}");
+            Console.WriteLine($"[Партия]   {Name,-22} | Стоимость партии: {Price,6} руб. | Кол-во: {Count,5} шт.");
+            Console.WriteLine($"             - {Item.Name,-20} | Цена: {Item.Price} | Произведён: {Item.ProductionDate:dd.MM.yyyy} | Годен до: {Item.ShelfLife:dd.MM.yyyy}");
         }
 
-        // Партия свежа, если её продукт ещё в срок
         public override bool IsShelfLife() => Item.IsShelfLife();
     }
 }
