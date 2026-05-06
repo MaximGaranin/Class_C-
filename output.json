@@ -1,45 +1,51 @@
 [
   {
-    "Type": "Product",
-    "ProductionDate": "2026-03-01T00:00:00",
-    "ShelfLife": "2026-03-25T00:00:00",
-    "Name": "Молоко",
-    "Price": 89
-  },
-  {
-    "Type": "Product",
-    "ProductionDate": "2026-02-01T00:00:00",
-    "ShelfLife": "2026-03-10T00:00:00",
-    "Name": "Масло",
-    "Price": 150
+    "Type": "Party",
+    "Count": 50,
+    "ProductionDate": "2026-03-05T00:00:00",
+    "ShelfLife": "2026-12-20T00:00:00",
+    "Name": "\u0419\u043E\u0433\u0443\u0440\u0442",
+    "Price": 55
   },
   {
     "Type": "Party",
     "Count": 100,
     "ProductionDate": "2026-01-15T00:00:00",
     "ShelfLife": "2026-06-15T00:00:00",
-    "Name": "Сок",
+    "Name": "\u0421\u043E\u043A",
     "Price": 75
+  },
+  {
+    "Type": "Product",
+    "ProductionDate": "2026-03-01T00:00:00",
+    "ShelfLife": "2026-12-25T00:00:00",
+    "Name": "\u041C\u043E\u043B\u043E\u043A\u043E",
+    "Price": 89
+  },
+  {
+    "Type": "Product",
+    "ProductionDate": "2026-02-01T00:00:00",
+    "ShelfLife": "2026-12-10T00:00:00",
+    "Name": "\u041C\u0430\u0441\u043B\u043E",
+    "Price": 150
   },
   {
     "Type": "Complect",
     "Products": [
       {
-        "Type": "Product",
         "ProductionDate": "2026-03-10T00:00:00",
         "ShelfLife": "2026-09-10T00:00:00",
-        "Name": "Каша",
+        "Name": "\u041A\u0430\u0448\u0430",
         "Price": 60
       },
       {
-        "Type": "Product",
         "ProductionDate": "2025-12-01T00:00:00",
         "ShelfLife": "2026-02-01T00:00:00",
-        "Name": "Джем",
+        "Name": "\u0414\u0436\u0435\u043C",
         "Price": 120
       }
     ],
-    "Name": "Завтрак",
+    "Name": "\u0417\u0430\u0432\u0442\u0440\u0430\u043A",
     "Price": 250
   }
 ]
