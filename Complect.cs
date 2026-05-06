@@ -15,10 +15,12 @@ namespace Items{
         }
 
         public override void Show(){
-            string composition = string.Join(", ", Products.Select(p => p.Name));
-            Console.WriteLine($"[Комплект] {Name,-22} | Цена: {Price,6} руб. | Состав: {composition}");
+            Console.WriteLine($"[Комплект] {Name,-22} | Цена: {Price,6} руб. | Состав ({Products.Count} шт.):");
+            foreach (var p in Products)
+                Console.WriteLine($"             - {p.Name,-20} | Произведён: {p.ProductionDate:dd.MM.yyyy} | Годен до: {p.ShelfLife:dd.MM.yyyy}");
         }
 
-        public override bool IsShelfLife() => Products.Count > 0 && Products.All(p => p.IsShelfLife());
+        public override bool IsShelfLife() =>
+            Products.Count > 0 && Products.All(p => p.IsShelfLife());
     }
 }
