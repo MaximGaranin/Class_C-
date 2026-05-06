@@ -18,8 +18,6 @@ class Program{
     {
         List<Goods> db;
 
-        // Приоритет: если есть input.json — читаем из него,
-        // иначе читаем из input.txt
         if (File.Exists(JSON_IN))
         {
             PrintHeader($"ИСТОЧНИК: {JSON_IN}");
@@ -56,16 +54,13 @@ class Program{
         else
             Console.WriteLine("  Просроченных не найдено.");
 
-        // Сериализация в JSON
         SaveJson(db, JSON_OUT);
 
-        // Десериализация обратно — проверка round-trip
         var reloaded = LoadFromJson(JSON_OUT);
         PrintHeader($"ЗАГРУЖЕНО ИЗ {JSON_OUT} (round-trip проверка)");
         foreach (var g in reloaded) g.Show();
     }
 
-    // ── Чтение из TXT ────────────────────────────────────────────────────────
     static List<Goods> LoadFromTxt(string path)
     {
         var db = new List<Goods>();
@@ -89,19 +84,14 @@ class Program{
                             DateTime.ParseExact(p[4].Trim(), FMT, null)));
                         break;
 
-                    // Партия теперь состоит из продуктов.
-                    // Формат строки: Партия;Название;Цена;Продукт1:цена1:дата_пр1:дата_сг1|Продукт2:...
+                    // Формат: Партия;Название;Цена;Кол-во;НазваниеПродукта;ДатаПроизв;ДатаГодности
                     case "Партия":
-                        var partyProducts = p[3].Split('|').Select(s =>
-                        {
-                            var f = s.Split(':');
-                            return new Product(
-                                f[0].Trim(),
-                                decimal.Parse(f[1]),
-                                DateTime.ParseExact(f[2].Trim(), FMT, null),
-                                DateTime.ParseExact(f[3].Trim(), FMT, null));
-                        }).ToList();
-                        db.Add(new Party(p[1].Trim(), decimal.Parse(p[2]), partyProducts));
+                        var item = new Product(
+                            p[4].Trim(),
+                            decimal.Parse(p[2]),
+                            DateTime.ParseExact(p[5].Trim(), FMT, null),
+                            DateTime.ParseExact(p[6].Trim(), FMT, null));
+                        db.Add(new Party(p[1].Trim(), decimal.Parse(p[2]), int.Parse(p[3]), item));
                         break;
 
                     case "Комплект":
@@ -131,7 +121,6 @@ class Program{
         return db;
     }
 
-    // ── Сериализация в JSON-файл ──────────────────────────────────────────────
     static void SaveJson(List<Goods> db, string path)
     {
         string json = JsonSerializer.Serialize(db, JsonOpts);
@@ -140,7 +129,6 @@ class Program{
         Console.WriteLine(json);
     }
 
-    // ── Десериализация из JSON-файла ──────────────────────────────────────────
     static List<Goods> LoadFromJson(string path)
     {
         if (!File.Exists(path))
@@ -150,9 +138,6 @@ class Program{
         }
 
         string json = File.ReadAllText(path);
-
-        // JsonPolymorphic на Goods обеспечивает корректное восстановление
-        // конкретных типов (Product / Party / Complect) по дискриминатору "Type"
         var loaded = JsonSerializer.Deserialize<List<Goods>>(json, JsonOpts);
 
         if (loaded == null || loaded.Count == 0)
