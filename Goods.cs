@@ -9,7 +9,6 @@ namespace Items{
         public string Name { get; set; } = string.Empty;
         public decimal Price { get; set; }
 
-        // Пустой конструктор — нужен для [JsonConstructor] в наследниках
         protected Goods() {}
 
         protected Goods(string name, decimal price){
@@ -26,7 +25,6 @@ namespace Items{
         public abstract override string ToString();
         public abstract bool IsShelfLife();
 
-        // Проверка типа: если obj не является Goods — бросаем исключение
         public int CompareTo(object? obj){
             if (obj is null) return 1;
 

@@ -18,7 +18,6 @@ namespace Items{
             ShelfLife = shelfLife;
         }
 
-        // Copy constructor — создаёт глубокую копию объекта
         public Product(Product other)
             : base(other?.Name ?? throw new ArgumentNullException(nameof(other)), other.Price)
         {

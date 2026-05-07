@@ -68,24 +68,24 @@ class Program{
         }
 
         PrintHeader("ВСЕ ТОВАРЫ (исходный порядок)");
-        foreach (var g in db) g.ToString();
+        foreach (var g in db) Console.WriteLine(g);
 
         db.Sort();
         PrintHeader("СОРТИРОВКА ПО ЦЕНЕ ↑");
-        foreach (var g in db) g.ToString();
+        foreach (var g in db) Console.WriteLine(g);
 
         PrintHeader($"ПРОСРОЧЕННЫЕ (на {DateTime.Today:dd.MM.yyyy})");
         var expired = db.Where(g => !g.IsShelfLife()).ToList();
         if (expired.Any())
-            foreach (var g in expired) g.ToString();
+            foreach (var g in expired) Console.WriteLine(g);
         else
             Console.WriteLine("  Просроченных не найдено.");
 
-        SaveJson(db, JSON_OUT);
+        SaveJson(db, JSON_IN);
 
         var reloaded = LoadFromJson(JSON_IN);
-        PrintHeader($"ЗАГРУЖЕНО ИЗ {JSON_OUT}");
-        foreach (var g in reloaded) g.ToString();
+        PrintHeader($"ЗАГРУЖЕНО ИЗ {JSON_IN}");
+        foreach (var g in reloaded) Console.WriteLine(g);
     }
 
 }

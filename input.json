@@ -1,50 +1,47 @@
 [
   {
     "Type": "Product",
-    "Name": "Хлеб белый",
-    "Price": 45.50,
-    "ProductionDate": "2026-05-05",
-    "ShelfLife": "2026-05-08"
+    "ProductionDate": "2026-05-05T00:00:00",
+    "ShelfLife": "2026-05-08T00:00:00",
+    "Name": "\u0425\u043B\u0435\u0431 \u0431\u0435\u043B\u044B\u0439",
+    "Price": 45.50
   },
   {
     "Type": "Product",
-    "Name": "Мясо",
-    "Price": 65.50,
-    "ProductionDate": "2026-04-05",
-    "ShelfLife": "2026-05-02"
-  },  
-  {
-  "Type": "Party",
-  "Name": "Молоко",
-  "Price": 8900.90,
-  "Count": 100,
-  "Item": {
-    "Type": "Product",
-    "Name": "Молоко 3.2%",
-    "Price": 89.90,
-    "ProductionDate": "2026-05-04",
-    "ShelfLife": "2026-05-11"
-  }
+    "ProductionDate": "2026-04-05T00:00:00",
+    "ShelfLife": "2026-05-02T00:00:00",
+    "Name": "\u041C\u044F\u0441\u043E",
+    "Price": 65.50
   },
   {
     "Type": "Complect",
-    "Name": "Завтрак №1",
-    "Price": 199.00,
     "Products": [
       {
-        "Type": "Product",
-        "Name": "Масло сливочное",
-        "Price": 89.00,
-        "ProductionDate": "2026-04-20",
-        "ShelfLife": "2026-07-20"
+        "ProductionDate": "2026-04-20T00:00:00",
+        "ShelfLife": "2026-07-20T00:00:00",
+        "Name": "\u041C\u0430\u0441\u043B\u043E \u0441\u043B\u0438\u0432\u043E\u0447\u043D\u043E\u0435",
+        "Price": 89.00
       },
       {
-        "Type": "Product",
-        "Name": "Сыр российский",
-        "Price": 110.00,
-        "ProductionDate": "2026-04-25",
-        "ShelfLife": "2026-06-25"
+        "ProductionDate": "2026-04-25T00:00:00",
+        "ShelfLife": "2026-06-25T00:00:00",
+        "Name": "\u0421\u044B\u0440 \u0440\u043E\u0441\u0441\u0438\u0439\u0441\u043A\u0438\u0439",
+        "Price": 110.00
       }
-    ]
+    ],
+    "Name": "\u0417\u0430\u0432\u0442\u0440\u0430\u043A \u21161",
+    "Price": 199.00
+  },
+  {
+    "Type": "Party",
+    "Count": 100,
+    "Item": {
+      "ProductionDate": "2026-05-04T00:00:00",
+      "ShelfLife": "2026-05-11T00:00:00",
+      "Name": "\u041C\u043E\u043B\u043E\u043A\u043E 3.2%",
+      "Price": 89.90
+    },
+    "Name": "\u041C\u043E\u043B\u043E\u043A\u043E",
+    "Price": 8900.90
   }
 ]

@@ -16,7 +16,6 @@ namespace Items{
             if (products.Count == 0)
                 throw new ArgumentException("Комплект не может быть пустым.");
 
-            // Глубокая копия списка — каждый Product копируется через copy constructor
             Products = products.Select(p => new Product(p)).ToList();
         }
 
