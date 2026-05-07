@@ -6,7 +6,6 @@ class Program{
     const string FMT       = "dd.MM.yyyy";
     const string TXT_PATH  = "input.txt";
     const string JSON_IN   = "input.json";
-    const string JSON_OUT  = "output.json";
 
     static readonly JsonSerializerOptions JsonOpts = new()
     {
@@ -69,24 +68,24 @@ class Program{
         }
 
         PrintHeader("ВСЕ ТОВАРЫ (исходный порядок)");
-        foreach (var g in db) g.Show();
+        foreach (var g in db) g.ToString();
 
         db.Sort();
         PrintHeader("СОРТИРОВКА ПО ЦЕНЕ ↑");
-        foreach (var g in db) g.Show();
+        foreach (var g in db) g.ToString();
 
         PrintHeader($"ПРОСРОЧЕННЫЕ (на {DateTime.Today:dd.MM.yyyy})");
         var expired = db.Where(g => !g.IsShelfLife()).ToList();
         if (expired.Any())
-            foreach (var g in expired) g.Show();
+            foreach (var g in expired) g.ToString();
         else
             Console.WriteLine("  Просроченных не найдено.");
 
         SaveJson(db, JSON_OUT);
 
-        var reloaded = LoadFromJson(JSON_OUT);
+        var reloaded = LoadFromJson(JSON_IN);
         PrintHeader($"ЗАГРУЖЕНО ИЗ {JSON_OUT}");
-        foreach (var g in reloaded) g.Show();
+        foreach (var g in reloaded) g.ToString();
     }
 
 }
