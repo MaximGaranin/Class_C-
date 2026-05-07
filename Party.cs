@@ -6,12 +6,13 @@ namespace Items{
         public Product Item { get; set; } = new();
 
         [JsonConstructor]
-        public Party() {}
+        public Party() : base() {}
 
         public Party(string name, decimal price, int count, Product item)
             : base(name, price)
         {
-            EnsureType<Product>(item, nameof(item));
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
 
             if (count <= 0)
                 throw new ArgumentException("Количество должно быть больше нуля.");

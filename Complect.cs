@@ -5,7 +5,7 @@ namespace Items{
         public List<Product> Products { get; set; } = new();
 
         [JsonConstructor]
-        public Complect() {}
+        public Complect() : base() {}
 
         public Complect(string name, decimal price, List<Product> products)
             : base(name, price)
@@ -16,6 +16,7 @@ namespace Items{
             if (products.Count == 0)
                 throw new ArgumentException("Комплект не может быть пустым.");
 
+            // Глубокая копия списка — каждый Product копируется через copy constructor
             Products = products.Select(p => new Product(p)).ToList();
         }
 

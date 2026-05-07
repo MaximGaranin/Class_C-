@@ -6,7 +6,7 @@ namespace Items{
         public DateTime ShelfLife { get; set; }
 
         [JsonConstructor]
-        public Product() {}
+        public Product() : base() {}
 
         public Product(string name, decimal price, DateTime productionDate, DateTime shelfLife)
             : base(name, price)
@@ -18,6 +18,7 @@ namespace Items{
             ShelfLife = shelfLife;
         }
 
+        // Copy constructor — создаёт глубокую копию объекта
         public Product(Product other)
             : base(other?.Name ?? throw new ArgumentNullException(nameof(other)), other.Price)
         {
